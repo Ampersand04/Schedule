@@ -1,7 +1,8 @@
+import express from 'express';
+import cors from 'cors';
+
 // Подключение необходимых модулей
-const express = 'express';
 const sqlite3 = 'sqlite3';
-const cors = 'cors';
 // Инициализация приложения Express
 const app = express();
 const port = 5000;

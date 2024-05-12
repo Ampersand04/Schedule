@@ -1,0 +1,60 @@
+.main {
+	padding-top: 100px;
+
+	width: 100%;
+	height: 100vh;
+
+	background-color: aliceblue;
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		padding: 10px;
+		span {
+			font-size: 14px;
+			font-weight: 500;
+
+			color: #ff0000;
+		}
+	}
+
+	button {
+		font-family: 'Montserrat', sans-serif;
+		padding: 15px 35px;
+
+		font-weight: 600;
+		border-radius: 10px;
+		color: #fff;
+		background-color: #292929;
+		width: fit-content;
+		margin: 0 auto;
+	}
+	.output {
+		overflow-y: scroll;
+		margin: 10px;
+		padding: 10px;
+		border-radius: 14px;
+		height: calc(100vh - 350px);
+		border: 1px solid #cccbcb;
+
+		background-color: #fff;
+
+		.lesson {
+			color: #101010;
+			border: 1px solid rgb(192, 201, 207);
+			border-radius: 10 px;
+			padding: 10px;
+			margin: 10px 0;
+
+			background-color: aliceblue;
+
+			display: flex;
+			gap: 20px;
+
+			.path {
+				display: flex;
+				flex-direction: column;
+			}
+		}
+	}
+}

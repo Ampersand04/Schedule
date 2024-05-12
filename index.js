@@ -35,15 +35,15 @@ db.serialize(() => {
 });
 
 app.post('/schedule/classroom', (req, res) => {
-    const { classroom, group_name } = req.body;
+    const { classroom, day_of_week } = req.body;
     let sql;
     let params;
 
     sql = `
             SELECT * FROM schedule  
-            WHERE classroom LIKE ? AND group_name LIKE ?
+            WHERE classroom LIKE ? AND day_of_week = ?
         `;
-    params = [`%${classroom}%`, `%${group_name}%`]; // Используем LIKE и добавляем символы подстановки %
+    params = [`%${classroom}%`, day_of_week]; // Используем LIKE и добавляем символы подстановки %
 
     // Выполняем SQL запрос с переданными параметрами
     db.all(sql, params, (err, rows) => {

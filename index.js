@@ -75,13 +75,13 @@ app.post('/schedule/filter', (req, res) => {
     } else if (week_type === 'Нижняя') {
         sql = `
             SELECT * FROM schedule 
-            WHERE day_of_week = ? AND group_name LIKE ? AND (week_type = ? OR week_type = 'Нижняя')
+            WHERE day_of_week = ? AND group_name LIKE ? AND (week_type = '-' OR week_type = 'Нижняя')
         `;
         params = [day_of_week, `%${group_name}%`, week_type];
     } else if (week_type === 'Верхняя') {
         sql = `
             SELECT * FROM schedule 
-            WHERE day_of_week = ? AND group_name LIKE ? AND (week_type = ? OR week_type = 'Верхняя')
+            WHERE day_of_week = ? AND group_name LIKE ? AND (week_type = '-' OR week_type = 'Верхняя')
         `;
         params = [day_of_week, `%${group_name}%`, week_type];
     } else {

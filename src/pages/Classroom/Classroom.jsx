@@ -6,11 +6,14 @@ import Select from 'react-select'
 import { fetchGetForClassroom } from '../../redux/slices/classroom'
 import { Controller, useForm } from 'react-hook-form'
 
+import { Audio } from 'react-loader-spinner'
+
 import { useDispatch, useSelector } from 'react-redux'
 
 const Classroom = () => {
 	const dispatch = useDispatch()
 	const selectClassroomData = useSelector((state) => state.classroom.data)
+	const selectClassroomStatus = useSelector((state) => state.classroom.status)
 	const {
 		register,
 		handleSubmit,
@@ -35,28 +38,25 @@ const Classroom = () => {
 		console.log(refactoredFormData)
 	}
 
-	const daysOfWeek = ['404']
+	const classroom = ['404']
 
-	const classroomsOptions = daysOfWeek.map((day) => ({
+	const classroomsOptions = classroom.map((day) => ({
 		value: day,
 		label: day
 	}))
-	const weekType = [
-		{ value: 'Верхняя', label: 'Верхняя' },
-		{ value: 'Нижняя', label: 'Нижняя' },
-		{ value: '-', label: 'Верхняя и нижняя' }
+	const daysOfWeek = [
+		'Понедельник',
+		'Вторник',
+		'Среда',
+		'Четверг',
+		'Пятница',
+		'Суббота'
 	]
-	const groupName = [
-		{ value: 'ИИ-23', label: 'ИИ-23' },
-		{ value: 'ИИ-24', label: 'ИИ-24' },
-		{ value: 'ПО-10', label: 'ПО-10' },
-		{ value: 'ПО-11', label: 'ПО-11' },
-		{ value: 'АС-63', label: 'АС-63' },
-		{ value: 'АС-64', label: 'АС-64' },
-		{ value: 'Э-61', label: 'Э-61' },
-		{ value: 'ПЭ-23', label: 'ПЭ-23' },
-		{ value: 'МС-8', label: 'МС-8' }
-	]
+
+	const daysOptions = daysOfWeek.map((day) => ({
+		value: day,
+		label: day
+	}))
 	return (
 		<Layout title="В кабинет">
 			<main className={styles.main}>
@@ -78,19 +78,19 @@ const Classroom = () => {
 					)}
 
 					<Controller
-						name="group_name"
+						name="day_of_week"
 						control={control}
 						render={({ field }) => (
 							<Select
 								{...field}
-								placeholder="Название группы"
-								options={groupName}
+								placeholder="День недели"
+								options={daysOptions}
 							/>
 						)}
-						rules={{ required: 'Выберите название группы' }}
+						rules={{ required: 'Выберите день недели' }}
 					/>
-					{errors.group_name && (
-						<span>{errors.group_name.message}</span>
+					{errors.day_of_week && (
+						<span>{errors.day_of_week.message}</span>
 					)}
 
 					{/* Display errors if any */}
@@ -98,14 +98,14 @@ const Classroom = () => {
 					{/* Submit button */}
 					<button type="submit">Запросить</button>
 
-					{selectClassroomData && (
+					{/* {selectClassroomData ? (
 						<section className={styles.output}>
-							{selectClassroomData.map((data, index) => (
+							{selectClassroomData?.map((data, index) => (
 								<div className={styles.lesson} key={index}>
 									<div className={styles.path} key={index}>
 										<p>{data?.time}</p>
 										<p>{data?.classroom}</p>
-										<p>{data?.subgroup} подгруппа</p>
+										<p>{data?.group_name}</p>
 									</div>
 
 									<div className={styles.path}>
@@ -116,6 +116,56 @@ const Classroom = () => {
 								</div>
 							))}
 						</section>
+					) : selectClassroomStatus === 'loading' ? (
+						<section className={styles.output}>
+							<Audio
+								height="80"
+								width="80"
+								radius="9"
+								color="green"
+								ariaLabel="loading"
+								wrapperStyle
+								wrapperClass
+							/>
+						</section>
+					) : (
+						''
+					)} */}
+
+					{selectClassroomData &&
+					selectClassroomStatus === 'loaded' ? (
+						<section className={styles.output}>
+							{selectClassroomData?.map((data, index) => (
+								<div className={styles.lesson} key={index}>
+									<div className={styles.path} key={index}>
+										<p>{data?.time}</p>
+										<p>{data?.classroom}</p>
+										<p>{data?.group_name}</p>
+									</div>
+
+									<div className={styles.path}>
+										<p>{data?.subject}</p>
+										<p>{data?.week_type}</p>
+										<p>{data?.teacher}</p>
+									</div>
+								</div>
+							))}
+						</section>
+					) : !selectClassroomData &&
+					  selectClassroomStatus === 'loading' ? (
+						<section className={styles.output}>
+							<Audio
+								height="80"
+								width="80"
+								radius="9"
+								color="green"
+								ariaLabel="loading"
+								wrapperStyle
+								wrapperClass
+							/>
+						</section>
+					) : (
+						''
 					)}
 				</form>
 			</main>

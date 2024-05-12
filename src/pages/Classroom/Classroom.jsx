@@ -132,8 +132,7 @@ const Classroom = () => {
 						''
 					)} */}
 
-					{selectClassroomData &&
-					selectClassroomStatus === 'loaded' ? (
+					{selectClassroomData ? (
 						<section className={styles.output}>
 							{selectClassroomData?.map((data, index) => (
 								<div className={styles.lesson} key={index}>
@@ -151,21 +150,22 @@ const Classroom = () => {
 								</div>
 							))}
 						</section>
-					) : !selectClassroomData &&
-					  selectClassroomStatus === 'loading' ? (
-						<section className={styles.output}>
-							<Audio
-								height="80"
-								width="80"
-								radius="9"
-								color="green"
-								ariaLabel="loading"
-								wrapperStyle
-								wrapperClass
-							/>
-						</section>
-					) : (
+					) : !selectClassroomData ? (
 						''
+					) : (
+						selectClassroomStatus === 'loading' && (
+							<section className={styles.output}>
+								<Audio
+									height="80"
+									width="80"
+									radius="9"
+									color="green"
+									ariaLabel="loading"
+									wrapperStyle
+									wrapperClass
+								/>
+							</section>
+						)
 					)}
 				</form>
 			</main>

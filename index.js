@@ -105,6 +105,9 @@ app.post('/schedule/filter', (req, res) => {
 app.post('/schedule/teacher', (req, res) => {
     const { teacher, week_type, group_name } = req.body;
 
+    let sql;
+    let params;
+
     if (week_type === '-') {
         sql = `
             SELECT * FROM schedule 

@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from 'react-redux'
 const Student = () => {
 	const dispatch = useDispatch()
 	const selectStudentData = useSelector((state) => state.student.data)
+	const selectStudentStatus = useSelector((state) => state.student.status)
+
 	const {
 		register,
 		handleSubmit,
@@ -120,24 +122,42 @@ const Student = () => {
 					{/* Submit button */}
 					<button type="submit">Запросить</button>
 
-					{selectStudentData && (
+					{selectStudentData ? (
 						<section className={styles.output}>
-							{selectStudentData.map((data, index) => (
-								<div className={styles.lesson} key={index}>
-									<div className={styles.path} key={index}>
-										<p>{data?.time}</p>
-										<p>{data?.classroom}</p>
-										<p>{data?.subgroup} подгруппа</p>
-									</div>
+							{selectStudentData.length > 0 ? (
+								selectStudentData?.map((data, index) => (
+									<div className={styles.lesson} key={index}>
+										<div
+											className={styles.path}
+											key={index}
+										>
+											<p>{data?.time}</p>
+											<p>{data?.classroom}</p>
+											<p>{data?.group_name}</p>
+										</div>
 
-									<div className={styles.path}>
-										<p>{data?.subject}</p>
-										<p>{data?.week_type}</p>
-										<p>{data?.teacher}</p>
+										<div className={styles.path}>
+											<p>{data?.subject}</p>
+											<p>{data?.week_type}</p>
+											<p>{data?.teacher}</p>
+										</div>
 									</div>
-								</div>
-							))}
+								))
+							) : (
+								<p>Данных нет!</p>
+							)}
 						</section>
+					) : selectStudentData === null &&
+					  selectStudentStatus === 'loading' ? (
+						<section className={styles.output_loader}>
+							<div className={styles.lesson}></div>
+							<div className={styles.lesson}></div>
+							<div className={styles.lesson}></div>
+							<div className={styles.lesson}></div>
+							<div className={styles.lesson}></div>
+						</section>
+					) : (
+						''
 					)}
 				</form>
 			</main>

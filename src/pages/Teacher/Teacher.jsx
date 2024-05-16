@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 const Teacher = () => {
 	const dispatch = useDispatch()
 	const selectTeacherData = useSelector((state) => state.teacher.data)
+	const selectTeacherStatus = useSelector((state) => state.teacher.status)
 	const {
 		register,
 		handleSubmit,
@@ -36,7 +37,26 @@ const Teacher = () => {
 		console.log(refactoredFormData)
 	}
 
-	const fio = ['Савчук О.Ф.']
+	const fio = [
+		'Соловсук А.М.',
+		'Войтович К.А.',
+		'Прокопюк О.В.',
+		'Самолюк О.Ю.',
+		'Козик И.Д.',
+		'Каримова Т.И.',
+		'Куличик Н.С',
+		'Кушнер Т.Л.',
+		'Босак В.Н.',
+		'Шляхова Е.И.',
+		'Ник.-Ртищева М.В.',
+		'Гайдук И.И.',
+		'Варич В.Н.',
+		'Наумова В.И.',
+		'Хацкевич А.С.',
+		'Шуть В.Н.',
+		'Тромза Т.В.',
+		'Новик Д.В.'
+	]
 
 	const fioOptions = fio.map((day) => ({
 		value: day,
@@ -114,24 +134,42 @@ const Teacher = () => {
 
 					{console.log(useSelector((state) => state.teacher))}
 
-					{selectTeacherData && (
+					{selectTeacherData ? (
 						<section className={styles.output}>
-							{selectTeacherData.map((data, index) => (
-								<div className={styles.lesson} key={index}>
-									<div className={styles.path} key={index}>
-										<p>{data?.time}</p>
-										<p>{data?.classroom}</p>
-										<p>{data?.group_name}</p>
-									</div>
+							{selectTeacherData.length > 0 ? (
+								selectTeacherData?.map((data, index) => (
+									<div className={styles.lesson} key={index}>
+										<div
+											className={styles.path}
+											key={index}
+										>
+											<p>{data?.time}</p>
+											<p>{data?.classroom}</p>
+											<p>{data?.group_name}</p>
+										</div>
 
-									<div className={styles.path}>
-										<p>{data?.subject}</p>
-										<p>{data?.week_type}</p>
-										<p>{data?.teacher}</p>
+										<div className={styles.path}>
+											<p>{data?.subject}</p>
+											<p>{data?.week_type}</p>
+											<p>{data?.teacher}</p>
+										</div>
 									</div>
-								</div>
-							))}
+								))
+							) : (
+								<p>Данных нет!</p>
+							)}
 						</section>
+					) : selectTeacherData === null &&
+					  selectTeacherStatus === 'loading' ? (
+						<section className={styles.output_loader}>
+							<div className={styles.lesson}></div>
+							<div className={styles.lesson}></div>
+							<div className={styles.lesson}></div>
+							<div className={styles.lesson}></div>
+							<div className={styles.lesson}></div>
+						</section>
+					) : (
+						''
 					)}
 				</form>
 			</main>

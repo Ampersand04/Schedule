@@ -14,7 +14,7 @@
 			font-size: 14px;
 			font-weight: 500;
 
-			color: #ff0000;
+			color: #ff6565;
 		}
 	}
 
@@ -38,16 +38,41 @@
 		height: fit-content;
 
 		display: flex;
-		justify-content: center;
+		flex-direction: column;
 
 		border: 1px solid #cccbcb;
 
 		background-color: #fff;
 
+		&_loader {
+			overflow: hidden;
+			border: 1px solid #cccbcb;
+			background-color: #fff;
+
+			height: calc(100vh - 350px);
+			padding: 15px 30px;
+			margin: 10px;
+			border-radius: 14px;
+
+			.lesson {
+				// width: 90%;
+				height: 80px;
+				background: rgb(224, 234, 244);
+				background: linear-gradient(
+					306deg,
+					rgba(224, 234, 244, 1) 0%,
+					rgba(240, 248, 255, 1) 49%,
+					rgba(224, 234, 244, 1) 100%
+				);
+				margin: 10px auto;
+				border-radius: 10px;
+			}
+		}
+
 		.lesson {
 			color: #101010;
 			border: 1px solid rgb(192, 201, 207);
-			border-radius: 10 px;
+			border-radius: 8px;
 			padding: 10px;
 			margin: 10px 0;
 

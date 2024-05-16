@@ -6,8 +6,6 @@ import Select from 'react-select'
 import { fetchGetForClassroom } from '../../redux/slices/classroom'
 import { Controller, useForm } from 'react-hook-form'
 
-import { Audio } from 'react-loader-spinner'
-
 import { useDispatch, useSelector } from 'react-redux'
 
 const Classroom = () => {
@@ -38,7 +36,17 @@ const Classroom = () => {
 		console.log(refactoredFormData)
 	}
 
-	const classroom = ['404']
+	const classroom = [
+		'2/215',
+		'2/404',
+		'2/311',
+		'401',
+		'2/213',
+		'2/306',
+		'2/406',
+		'2/104',
+		'443'
+	]
 
 	const classroomsOptions = classroom.map((day) => ({
 		value: day,
@@ -134,38 +142,40 @@ const Classroom = () => {
 
 					{selectClassroomData ? (
 						<section className={styles.output}>
-							{selectClassroomData?.map((data, index) => (
-								<div className={styles.lesson} key={index}>
-									<div className={styles.path} key={index}>
-										<p>{data?.time}</p>
-										<p>{data?.classroom}</p>
-										<p>{data?.group_name}</p>
-									</div>
+							{selectClassroomData.length > 0 ? (
+								selectClassroomData?.map((data, index) => (
+									<div className={styles.lesson} key={index}>
+										<div
+											className={styles.path}
+											key={index}
+										>
+											<p>{data?.time}</p>
+											<p>{data?.classroom}</p>
+											<p>{data?.group_name}</p>
+										</div>
 
-									<div className={styles.path}>
-										<p>{data?.subject}</p>
-										<p>{data?.week_type}</p>
-										<p>{data?.teacher}</p>
+										<div className={styles.path}>
+											<p>{data?.subject}</p>
+											<p>{data?.week_type}</p>
+											<p>{data?.teacher}</p>
+										</div>
 									</div>
-								</div>
-							))}
+								))
+							) : (
+								<p>Данных нет!</p>
+							)}
 						</section>
-					) : !selectClassroomData ? (
-						''
+					) : selectClassroomData === null &&
+					  selectClassroomStatus === 'loading' ? (
+						<section className={styles.output_loader}>
+							<div className={styles.lesson}></div>
+							<div className={styles.lesson}></div>
+							<div className={styles.lesson}></div>
+							<div className={styles.lesson}></div>
+							<div className={styles.lesson}></div>
+						</section>
 					) : (
-						selectClassroomStatus === 'loading' && (
-							<section className={styles.output}>
-								<Audio
-									height="80"
-									width="80"
-									radius="9"
-									color="green"
-									ariaLabel="loading"
-									wrapperStyle
-									wrapperClass
-								/>
-							</section>
-						)
+						''
 					)}
 				</form>
 			</main>

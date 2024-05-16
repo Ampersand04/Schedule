@@ -11,7 +11,7 @@ export const fetchGetForStudents = createAsyncThunk(
 
 const initialState = {
 	data: null,
-	status: 'loading'
+	status: 'state'
 }
 
 const getSlice = createSlice({

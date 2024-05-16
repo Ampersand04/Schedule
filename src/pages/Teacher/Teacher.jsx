@@ -143,6 +143,7 @@ const Teacher = () => {
 											className={styles.path}
 											key={index}
 										>
+											<b>{data?.day_of_week}</b>
 											<p>{data?.time}</p>
 											<p>{data?.classroom}</p>
 											<p>{data?.group_name}</p>
